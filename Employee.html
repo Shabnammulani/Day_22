@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            width: 350px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        input:focus, textarea:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+        button {
+            background: #2575fc;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1a5fd0;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Employee Form</h2>
+        <form id="employeeForm">
+            <label>Employee ID:</label>
+            <input type="text" id="Empid" placeholder="Enter Employee ID" required pattern="\d+">
+
+            <label>Employee Name:</label>
+            <input type="text" id="Empname" placeholder="Enter Employee Name" required pattern="[A-Za-z\s]+">
+
+            <label>Email:</label>
+            <input type="email" id="email" placeholder="Enter Email" required>
+
+            <label>Date of Birth:</label>
+            <input type="date" id="Dob" required>
+
+            <label>Address:</label>
+            <textarea id="address" placeholder="Enter Address" required pattern="[A-Za-z0-9\s,.-]+"></textarea>
+
+            <label>Mobile No:</label>
+            <input type="text" id="contactno" placeholder="Enter Mobile Number" required pattern="\d{10}">
+
+           <input type="submit">
+
+            
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("employeeForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent page refresh
+
+            // Retrieve values
+            const empId = document.getElementById("empId").value.trim();
+            const empName = document.getElementById("empName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const dob = document.getElementById("dob").value;
+            const address = document.getElementById("address").value.trim();
+            const mobile = document.getElementById("mobile").value.trim();
+
+            // Validation
+            if (!/^\d+$/.test(empId)) {
+                alert("Employee ID must contain only numbers.");
+                return;
+            }
+            if (!/^[A-Za-z\s]+$/.test(empName)) {
+                alert("Employee Name must contain only letters.");
+                return;
+            }
+            if (!/^\S+@\S+\.\S+$/.test(email)) {
+                alert("Enter a valid email address.");
+                return;
+            }
+            if (!/^[A-Za-z0-9\s,.-]+$/.test(address)) {
+                alert("Address should be alphanumeric.");
+                return;
+            }
+            if (!/^\d{10}$/.test(mobile)) {
+                alert("Mobile number must be exactly 10 digits.");
+                return;
+            }
+
+            // Display values
+            document.getElementById("result").innerHTML = `
+                <strong>Entered Details:</strong><br>
+                Employee ID: ${empId}<br>
+                Employee Name: ${empName}<br>
+                Email: ${email}<br>
+                DOB: ${dob}<br>
+                Address: ${address}<br>
+                Mobile No: ${mobile}
+            `;
+        });
+    </script>
+</body>
+</html>
